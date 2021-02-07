@@ -25,7 +25,7 @@
                 indeterminate
                 color="primary"
                 v-if="upvoting"
-              ></v-progress-circular>
+              />
               <v-icon v-else>mdi-arrow-up</v-icon>
             </v-btn>
 

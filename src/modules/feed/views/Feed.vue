@@ -1,9 +1,6 @@
 <template>
   <v-container fluid style="padding: 0">
-    <v-skeleton-loader
-        v-if="loading"
-        type="article"
-    ></v-skeleton-loader>
+    <v-skeleton-loader v-if="loading" type="article"></v-skeleton-loader>
 
     <template v-if="communityId">
       <v-skeleton-loader v-if="!community" />
@@ -132,7 +129,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import {mapGetters, mapState} from "vuex";
 import Username from "../components/Username";
 import Editor from "../components/Editor";
 import PostItem from "@/modules/feed/components/PostItem";
@@ -195,7 +192,10 @@ export default {
       if (!this.communityId) {
         await this.$store.dispatch("$feed/getDefaultPosts");
       } else {
-        await this.$store.dispatch("$feed/getCommunityPosts", this.communityId);
+        await this.$store.dispatch("$feed/getCommunityPosts", {
+          id: this.communityId,
+          includeYour: this.loggedIn,
+        });
       }
 
       this.loading = false;
@@ -423,6 +423,7 @@ export default {
 
   computed: {
     ...mapState("$feed", ["posts", "community"]),
+		...mapGetters("$auth", ["loggedIn"]),
 
     /** @returns {number} */
     communityId() {

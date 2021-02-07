@@ -28,4 +28,4 @@ pnpm-debug.log*
 /src-cordova
 
 # Custom Generated stuff
-/generated
+generated

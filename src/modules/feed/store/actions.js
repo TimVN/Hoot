@@ -26,10 +26,11 @@ export default {
 
   /**
    * @param {number} id
+   * @param {boolean} includeYour
    * @returns {Promise<Post[]>}
    */
-  getCommunityPosts({ commit }, id) {
-    return api.communities.getPosts(id).then((posts) => {
+  getCommunityPosts({ commit }, { id, includeYour }) {
+    return api.communities.getPosts({ id, includeYour }).then((posts) => {
       commit("setPosts", posts);
 
       return posts;
@@ -109,7 +110,7 @@ export default {
   upvotePost({ commit }, post) {
     return api.posts.upvotePost(post.id).then(() => {
       commit("setPostScore", post.score + 1);
-      commit("setPostYourVote", true);
+      commit("setPostYourVote", { id: post.id, yourVote: true });
     });
   },
 
@@ -119,7 +120,7 @@ export default {
   downvotePost({ commit }, post) {
     return api.posts.downvotePost(post.id).then(() => {
       commit("setPostScore", post.score - 1);
-      commit("setPostYourVote", false);
+      commit("setPostYourVote", { id: post.id, yourVote: false });
     });
   },
 };

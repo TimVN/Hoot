@@ -34,9 +34,13 @@ export default new (class Auth extends Api {
   }
 
   /** @returns {Promise<Post[]>} */
-  getPosts(id) {
+  getPosts({ id, includeYour }) {
     return this.axios
-      .get(`${this.baseUrl}/communities/${id}/posts`)
+      .get(
+        `${this.baseUrl}/communities/${id}/posts${
+          includeYour ? "?include_your=true" : ""
+        }`
+      )
       .then(({ data }) => {
         return data.map((post) => new Post(post));
       });

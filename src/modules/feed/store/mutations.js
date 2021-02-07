@@ -75,11 +75,18 @@ export default {
   },
 
   /**
+   * @param {number} id
    * @param {boolean} yourVote
    */
-  setPostYourVote(state, yourVote) {
+  setPostYourVote(state, { id, yourVote }) {
     if (state.post) {
       state.post.your_vote = yourVote ? {} : null;
+    }
+
+    const post = state.posts.find((p) => p.id === id);
+
+    if (post) {
+      post.your_vote = yourVote;
     }
   },
 };

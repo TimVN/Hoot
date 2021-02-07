@@ -172,6 +172,24 @@ class ClassGenerator {
   }
 }
 
-const data = { id: 100 };
+const data = {
+  name: "Robert",
+  id: 1,
+  address: {
+    city: "Amsterdam",
+    street: "Marco polo affaire",
+    number: 101,
+    neighbours: [
+      {
+        name: "Natnek",
+        highestOut: 127,
+        nationality: "German",
+        autist: {
+          city: "Uithoorn",
+        },
+      },
+    ],
+  },
+};
 
-new ClassGenerator("postReplyResponse", data, true);
+new ClassGenerator("Darter", data, true);
